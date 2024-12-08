@@ -1,4 +1,4 @@
-# Cooking Up Insights: Analyzing Recipes and Ratings Data
+# Exploring Recipe Data: What Drives Calorie Content?
 
 **Name**: Angela Li  
 
