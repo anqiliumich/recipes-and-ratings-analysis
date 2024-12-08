@@ -1,3 +1,18 @@
 remote_theme: pmarsceill/just-the-docs
 plugins:
   - jekyll-remote-theme
+
+title: "recipes-and-ratings-analysis"
+just_the_docs:
+  aux_nav:
+    "Recipes and Ratings Analysis":  # Sidebar Header
+      - title: "Introduction"
+        url: /
+      - title: "Data Cleaning and Exploratory Data Analysis"
+        url: /#data-cleaning-and-exploratory-data-analysis
+      - title: "Framing a Prediction Problem"
+        url: /#framing-a-prediction-problem
+      - title: "Baseline Model"
+        url: /#baseline-model
+      - title: "Final Model"
+        url: /#final-model
