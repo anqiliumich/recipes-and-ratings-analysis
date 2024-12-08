@@ -19,17 +19,17 @@ The data is split into two parts:
 ---
 
 ### Question
-**What factors influence the average rating of a recipe?**
+**What factors influence the calorie content of recipes?**
 
-This analysis seeks to identify key recipe attributes—such as preparation time, number of ingredients, nutritional values, and complexity (steps)—that make recipes highly rated. By analyzing the relationship between these factors and average ratings, we can uncover what makes a recipe successful and enjoyable for users.
+This analysis seeks to identify key recipe attributes—such as preparation time, number of ingredients, and specific nutritional components—that affect the total calorie count of a recipe. By analyzing the relationship between these factors and calorie content, we can uncover trends that define high-calorie versus low-calorie recipes.
 
 ---
 
 ### Why This Question Matters
-Understanding what makes a recipe highly rated can:
-- Help recipe developers craft recipes that appeal to users and receive higher ratings.
-- Guide home cooks to create dishes that are likely to be well-received by others.
-- Enhance recipe recommendation systems to prioritize high-performing recipes.
+Understanding calorie content can:
+- Help home cooks and recipe developers design meals that meet specific dietary goals.
+- Inform users about which recipe attributes contribute to higher or lower calorie counts.
+- Enhance recipe recommendation systems by including calorie considerations for health-conscious users.
 
 ---
 
@@ -60,27 +60,25 @@ The dataset contains the following key columns:
 
 ### Brainstorming Questions
 
-1. **What is the relationship between preparation time (`minutes`) and average ratings?**
-   - Are longer or shorter recipes more likely to be rated highly?
+1. **What is the relationship between preparation time (`minutes`) and calories?**
+   - Do quicker recipes (shorter preparation times) tend to have fewer calories?
    
-2. **How does the number of ingredients (`n_ingredients`) correlate with average ratings?**
-   - Do simpler recipes (fewer ingredients) receive better ratings?
+2. **How does the number of ingredients (`n_ingredients`) correlate with calories?**
+   - Do recipes with more ingredients generally have higher calorie counts?
 
-3. **What types of recipes tend to have the highest ratings?**
-   - Analyze based on tags (e.g., vegetarian, quick, or holiday recipes).
+3. **What types of recipes are the most calorie-dense?**
+   - Analyze based on `tags` (e.g., "comfort food", "vegetarian", "low-calorie").
 
-4. **How does nutritional content affect ratings?**
-   - Explore whether healthier recipes (e.g., high protein, low sugar) are more popular.
+4. **Does recipe complexity (`n_steps`) influence calorie content?**
+   - Are recipes with more steps (indicative of complexity) higher in calories?
 
-5. **Does recipe complexity (`n_steps`) influence ratings?**
-   - Are recipes with more steps seen as too complex or gourmet, and do they receive higher ratings as a result?
+5. **How do nutritional factors such as sugar, fat, or protein correlate with total calories?**
+   - Explore the relationships between specific nutritional components and total calorie content.
 
-6. **What is the distribution of ratings across all recipes?**
-   - Are ratings skewed toward higher values, indicating user satisfaction?
+6. **What is the distribution of calorie content across all recipes?**
+   - Are recipes skewed toward lower calorie values, or is there a wide range of calorie counts?
 
 ---
-
-With this comprehensive introduction and clear research focus, we’re ready to delve into the data cleaning and analysis to answer these questions.
 
 # Data Cleaning and Exploratory Data Analysis
 
@@ -119,28 +117,18 @@ Below is the head of the cleaned dataset:
 
 ---
 
-## Univariate Analysis
+### Univariate Analysis
 
-### Distribution of Cooking Time (Filtered)
+In this section, we analyze the distributions of key nutritional attributes, particularly focusing on **calories** and **sodium**, as these are directly relevant to our overarching question: "What factors influence the calorie content of recipes?"
 
-The histogram below displays the distribution of cooking times for recipes, filtered to exclude extreme outliers (over 500 minutes). The plot shows that most recipes take less than 100 minutes to prepare, with the highest concentration around 20 to 40 minutes. This trend suggests that quick and easy recipes dominate the dataset, aligning with user preferences for time-efficient cooking.
+---
 
-<iframe
-  src="assets/cooking_time_distribution_filtered.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
+#### Calories Distribution (Filtered)
 
-
-## Bivariate Analysis
-
-### Cooking Time vs. Average Rating (Filtered)
-
-This scatter plot shows the relationship between cooking time (filtered to exclude recipes with cooking times greater than 500 minutes) and the average rating of recipes. While most recipes cluster around shorter cooking times (under 100 minutes), the ratings appear to be consistently high (around 4–5) regardless of cooking time. This suggests that cooking time alone may not strongly influence the ratings, but users seem to appreciate recipes across a range of preparation times.
+The histogram below visualizes the calorie distribution after filtering extreme outliers (greater than the 99th percentile). The majority of recipes contain between 200 and 500 calories. There is a noticeable long tail for recipes with higher calorie counts, which likely represents more indulgent or complex dishes.
 
 <iframe
-  src="assets/cooking_time_vs_rating_filtered.html"
+  src="assets/calories_distribution_filtered.html"
   width="800"
   height="600"
   frameborder="0">
@@ -148,12 +136,46 @@ This scatter plot shows the relationship between cooking time (filtered to exclu
 
 ---
 
-### Number of Steps vs. Average Rating
+#### Sodium Distribution (Filtered)
 
-This scatter plot illustrates the relationship between the number of steps in a recipe and its average rating. Recipes with fewer steps (under 20) are the most common and tend to have consistently high ratings. However, as the number of steps increases, there is no significant drop in ratings, suggesting that users are willing to rate complex recipes highly as long as they meet quality expectations.
+The sodium content distribution reveals that most recipes fall under 50% of the daily recommended sodium intake (PDV%). A significant drop-off is observed as sodium content increases, suggesting that most recipes are designed to be moderate in sodium.
 
 <iframe
-  src="assets/steps_vs_rating.html"
+  src="assets/sodium_distribution_filtered.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+---
+
+### Insights
+
+- **Calories**: Recipes with moderate calorie counts dominate the dataset, indicating a preference for balanced meals. This trend may reflect a user preference for recipes that are practical for everyday consumption.
+- **Sodium**: Sodium levels are also relatively low in most recipes, suggesting a focus on health-conscious cooking.
+
+These findings set the stage for further analysis into how various recipe attributes, such as ingredients and preparation methods, influence calorie content.
+
+
+## Bivariate Analysis
+
+### Calories vs. Total Fat (Filtered)
+The scatter plot below shows the relationship between calories and total fat percentage (PDV%). A positive trend is visible, indicating that recipes with higher total fat content tend to have more calories. This is expected as fat is calorie-dense. This visualization answers our question about how nutritional attributes correlate with calorie counts, suggesting a direct relationship between fat content and caloric value.
+
+<iframe
+  src="assets/calories_vs_total_fat.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+---
+
+### Calories by Number of Ingredients (Binned)
+The box plot below displays the distribution of calorie counts across recipes grouped by the number of ingredients (binned). Recipes with more ingredients tend to have a higher median calorie count. However, the wide range of calories within each bin suggests that other factors also significantly contribute to caloric content.
+
+<iframe
+  src="assets/calories_by_num_ingredients.html"
   width="800"
   height="600"
   frameborder="0">
@@ -161,48 +183,31 @@ This scatter plot illustrates the relationship between the number of steps in a 
 
 ## Interesting Aggregates
 
-### Average Number of Steps by Cooking Time Range
+### Average Nutritional Content by Number of Ingredients
 
-The table and bar chart below summarize the average number of steps in recipes grouped by cooking time range. As expected, recipes with longer cooking times tend to involve more steps, reflecting their complexity and level of detail. Quick recipes (under 30 minutes) typically have fewer steps, making them more accessible for users looking for simplicity.
+The table below summarizes the average calories, protein, total fat, sugar, sodium, and carbohydrates grouped by the number of ingredients. Recipes with more ingredients tend to have higher nutritional values, reflecting the inclusion of richer or more diverse components.
 
-#### Pivot Table: Average Number of Steps by Cooking Time Range
+| Ingredient Range   | Calories | Protein (PDV%) | Total Fat (PDV%) | Sugar (PDV%) | Sodium (PDV%) | Carbohydrates (PDV%) |
+|--------------------|----------|----------------|------------------|--------------|---------------|----------------------|
+| 0-5                | 336.71   | 20.33          | 24.43           | 81.00        | 24.29         | 11.77               |
+| 6-10               | 401.71   | 30.60          | 30.62           | 62.85        | 26.68         | 12.87               |
+| 11-15              | 495.22   | 40.73          | 37.71           | 69.68        | 32.11         | 15.62               |
+| 16-20              | 601.77   | 52.93          | 47.01           | 73.56        | 42.27         | 17.95               |
+| 21+                | 769.57   | 68.49          | 60.45           | 101.07       | 69.66         | 22.85               |
 
-| Cooking Time Range | Average Number of Steps  |
-|--------------------|--------------------------|
-| Under 30 mins      | 5.2                      |
-| 30-60 mins         | 8.3                      |
-| 60-120 mins        | 12.4                     |
-| Over 120 mins      | 15.6                     |
+---
 
-#### Bar Chart
-<iframe
-  src="assets/steps_by_cooking_time_range.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
+### Average Calories by Number of Ingredients
 
+The pivot table below shows the average calories grouped by the number of ingredients. Recipes with more ingredients tend to have higher caloric values, likely reflecting the inclusion of richer and more varied components.
 
-### Average Rating by Cooking Time Range
-
-The table and bar chart below summarize the average ratings for recipes grouped by cooking time range. Recipes with moderate cooking times (30–120 minutes) tend to receive the highest ratings, suggesting that users appreciate recipes that strike a balance between ease and complexity. Recipes under 30 minutes have slightly lower ratings, which may indicate that simpler recipes, while convenient, are not always as satisfying.
-
-#### Pivot Table: Average Rating by Cooking Time Range
-
-| Cooking Time Range  | Average Rating |
-|---------------------|----------------|
-| Under 30 mins       | 4.2            |
-| 30-60 mins          | 4.5            |
-| 60-120 mins         | 4.6            |
-| Over 120 mins       | 4.4            |
-
-#### Bar Chart
-<iframe
-  src="assets/average_rating_by_cooking_time_range.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
+| Ingredient Range   | Calories |
+|--------------------|----------|
+| 0-5                | 336.71   |
+| 6-10               | 401.71   |
+| 11-15              | 495.22   |
+| 16-20              | 601.77   |
+| 21+                | 769.57   |
 
 
 ## Imputation of Missing Values
@@ -237,9 +242,162 @@ The bar chart below displays the distribution of recipes by `cooking_time_range`
 </iframe>
 
 ### Justification for Imputation Technique
+Imputation was applied selectively:
+1. For variables directly related to calories (e.g., nutritional columns), imputation was unnecessary since there were no missing values.
+2. Other imputations ensured the dataset’s usability but were not critical to answering our main research question.
 - **Description**: A placeholder ensures the dataset remains consistent, even though this column is not central to our research question.
 - **Cooking Time Range**: The recalculation based on `minutes` ensures logical consistency and avoids missing data in grouped analyses.
 - **Name**: Using a placeholder prevents issues with indexing or identification while maintaining dataset integrity.
 
-### Significance
-The imputation process focused on ensuring consistency for secondary columns (e.g., `description`, `cooking_time_range`, `name`) while retaining the original statistical properties of key analytical columns. By addressing missing values in this way, we maintained the dataset's usability and ensured no valuable records were excluded. This step enhances the reliability and completeness of the insights derived from the data.
+### Prediction Problem
+The goal of this analysis is to **predict the calorie count** of recipes based on their nutritional components.
+
+### Problem Type
+This is a **regression problem**, as the target variable (`calories`) is continuous.
+
+### Features and Target
+- **Target Variable**: `calories` (measured as a continuous numerical value).
+- **Features**:
+  - `protein`: Protein content as a percentage of the daily value (PDV%).
+  - `total_fat`: Total fat content as a percentage of the daily value (PDV%).
+  - `sugar`: Sugar content as a percentage of the daily value (PDV%).
+  - `sodium`: Sodium content as a percentage of the daily value (PDV%).
+  - `carbohydrates`: Carbohydrate content as a percentage of the daily value (PDV%).
+
+### Justification
+- **Regression Problem**: The target variable `calories` is continuous.
+- **Relevance**: The selected features directly relate to key nutritional factors influencing calorie content.
+- **Availability**: These features are always available at the time of prediction, as they are derived from a recipe’s nutritional breakdown.
+
+### Dataset Shape
+The dataset includes **83,782 recipes** and the following features:
+- Target: `calories`
+- Predictors: `protein`, `total_fat`, `sugar`, `sodium`, `carbohydrates`.
+
+### Evaluation Metrics
+To evaluate the predictive model’s performance, we will use:
+1. **Root Mean Squared Error (RMSE)**:
+   - Provides a sense of overall prediction error, weighted more towards larger errors.
+2. **Mean Absolute Error (MAE)**:
+   - Offers insight into the average error magnitude.
+3. **R² Score**:
+   - Explains the proportion of variance in calorie count that can be predicted by the selected features.
+
+## Baseline Model
+
+### Model Description
+
+The baseline model is a **Linear Regression model** designed to predict the calorie content of a recipe based on simple nutritional information. This model utilizes two **quantitative features** that are directly related to calories: sugar content and sodium content.
+
+#### **Features in the Model**
+1. **Quantitative Features**:
+   - `sugar`: Sugar content in Percent Daily Value (PDV%).
+   - `sodium`: Sodium content in PDV%.
+   - Both features are numerical, requiring no special encoding but requiring preprocessing for scaling.
+
+2. **Ordinal Features**:
+   - None.
+
+3. **Nominal Features**:
+   - None.
+
+4. **Target Variable**:
+   - `calories`: Calorie content, the response variable, measured as a continuous numerical value.
+
+### Preprocessing Steps
+
+- **Imputation**: Missing values in `sugar` and `sodium` were handled using the mean imputation strategy to avoid issues with incomplete data.
+- **Scaling**: Both features were standardized using `StandardScaler` to ensure they were on comparable scales, as linear regression can be sensitive to the magnitude of features.
+
+### Model Implementation
+
+The preprocessing steps (imputation and scaling) and model training were implemented using a single `sklearn` pipeline for streamlined reproducibility. The data was split into training (80%) and testing (20%) sets to evaluate the model’s ability to generalize to unseen data.
+
+### Model Performance
+
+The model's performance was evaluated using the following metrics:
+
+1. **Root Mean Squared Error (RMSE)**:
+   - Train RMSE: **466.84**
+   - Test RMSE: **425.44**
+   - **Interpretation**: The model’s predictions deviate significantly from actual calorie values, indicating that this simple model struggles to capture the variance in calorie content.
+
+2. **R² Score (Coefficient of Determination)**:
+   - Train R²: **0.4797**
+   - Test R²: **0.4840**
+   - **Interpretation**: The model explains only ~48% of the variance in calorie values, leaving over half of the variance unexplained.
+
+### Is This a Good Baseline Model?
+
+This is a **poor baseline model**, as it underperforms in both explanatory power (R²) and prediction accuracy (high RMSE). The low R² score suggests that the features chosen (`sugar` and `sodium`) are insufficient to predict calories effectively on their own.
+
+However, as a baseline model, it provides:
+- A **starting point** for improvement.
+- A **benchmark** against which more complex models can be evaluated.
+
+### Opportunities for Improvement
+
+1. Introduce additional features, such as fat and carbohydrates, to improve predictive performance.
+2. Explore feature engineering to derive new variables, such as the ratio of sugar to sodium, or transformations to normalize skewed distributions.
+3. Investigate non-linear models, such as Random Forests or Gradient Boosting, which may better capture complex relationships between features and calories.
+
+## Final Model
+
+### Model Description
+The final model is designed to predict the calorie content of recipes using nutritional information and engineered features. This model builds upon the baseline model by incorporating additional features and using a more advanced algorithm with hyperparameter tuning to improve predictive performance.
+
+#### Features in the Model
+1. **Quantitative Features**:
+   - `protein`: Protein content in PDV% (Percent Daily Value).
+   - `total_fat`: Total fat content in PDV%.
+   - `sugar`: Sugar content in PDV%.
+   - `sodium`: Sodium content in PDV%.
+   - `carbohydrates`: Carbohydrate content in PDV%.
+2. **Engineered Features**:
+   - `protein_fat_ratio`: The ratio of protein to fat in a recipe. This feature captures the balance between macronutrients, which influences calorie content.
+   - `log_sodium`: The logarithmic transformation of sodium content. This feature accounts for diminishing effects of sodium at higher levels and makes the data more normally distributed.
+3. **Target Variable**:
+   - `calories`: Calorie content, the response variable, measured as a continuous numerical value.
+
+### Preprocessing and Modeling Algorithm
+- **Preprocessing**:
+  - **Scaling**: `StandardScaler` was applied to the quantitative features to ensure uniform scaling for the model.
+  - **Quantile Transformation**: `QuantileTransformer` was used on the engineered features (`protein_fat_ratio` and `log_sodium`) to normalize their distributions.
+  - **Imputation**: Missing values were imputed using the mean strategy.
+- **Modeling Algorithm**:
+  - **XGBoost**: A gradient-boosted decision tree model was chosen for its ability to handle non-linear relationships and interactions between features. The model was trained using GPU acceleration (`tree_method='hist'`) for efficiency.
+  - **Hyperparameter Tuning**: A grid search with cross-validation was conducted to optimize key hyperparameters:
+    - `n_estimators`: Number of trees.
+    - `learning_rate`: Step size shrinkage to prevent overfitting.
+    - `max_depth`: Maximum depth of a tree.
+    - `subsample`: Fraction of samples used for training each tree.
+
+### Best Hyperparameters
+After grid search, the best parameters were:
+- `n_estimators`: 200
+- `learning_rate`: 0.2
+- `max_depth`: 5
+- `subsample`: 0.8
+
+### Model Performance
+| Metric          | Training Set | Test Set  |
+|------------------|--------------|-----------|
+| **RMSE**        | 61.0425      | 180.7139  |
+| **R² Score**    | 0.9911       | 0.9069    |
+
+- The **Final Model** demonstrates significant improvement over the **Baseline Model**, with higher R² scores and lower RMSE values on both the training and test sets. This improvement is attributed to the inclusion of engineered features and the use of a more sophisticated algorithm.
+
+### Why These Features Are Good for Prediction
+- **Protein and Fat Balance**: The `protein_fat_ratio` directly relates to calorie computation since calories are derived from macronutrients.
+- **Log Transformation**: The `log_sodium` feature accounts for diminishing returns in sodium's contribution to calorie differences, reflecting real-world patterns in recipes.
+
+### Visualization of Model Performance
+Below is a scatter plot showing the predicted vs. actual calorie values for the test set:
+
+![Predicted vs. Actual Calories](predicted_vs_actual_calories_plot.html)
+
+This visualization illustrates the model's accuracy, with points clustering around the diagonal line (`y = x`), indicating strong predictive performance.
+
+### Conclusion
+The final model effectively predicts calorie content, significantly outperforming the baseline model. By leveraging feature engineering, advanced modeling techniques, and hyperparameter optimization, this model achieves robust performance while maintaining interpretability.
+
