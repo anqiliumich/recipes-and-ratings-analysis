@@ -120,49 +120,26 @@ Below is the head of the cleaned dataset:
 
 ## Univariate Analysis
 
-### Cooking Time Distribution
-The histogram shows that most recipes take less than 60 minutes to prepare, indicating a focus on quick and easy recipes. Few recipes require over 120 minutes, which are likely elaborate or gourmet dishes.
+### Distribution of Cooking Time (Filtered)
+
+The histogram below displays the distribution of cooking times for recipes, filtered to exclude extreme outliers (over 500 minutes). The plot shows that most recipes take less than 100 minutes to prepare, with the highest concentration around 20 to 40 minutes. This trend suggests that quick and easy recipes dominate the dataset, aligning with user preferences for time-efficient cooking.
 
 <iframe
-  src="assets/cooking_time_distribution.html"
+  src="assets/cooking_time_distribution_filtered.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
 
----
-
-### Average Rating Distribution
-The distribution of average ratings is skewed toward higher values, with most recipes rated between 4 and 5. This suggests that users are generally satisfied with the recipes, but there might be rating inflation.
-
-<iframe
-  src="assets/average_rating_distribution.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
----
-
-### Calories Distribution After Imputation
-The histogram shows that most recipes have between 200 and 500 calories. After imputation, the calorie distribution remains smooth, ensuring no outliers are introduced.
-
-<iframe
-  src="assets/calories_after_imputation.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
----
 
 ## Bivariate Analysis
 
-### Cooking Time vs. Average Rating
-The scatter plot shows a positive trend where recipes with longer cooking times tend to have slightly higher ratings. This suggests users may associate longer preparation times with more flavorful or complex dishes.
+### Cooking Time vs. Average Rating (Filtered)
+
+This scatter plot shows the relationship between cooking time (filtered to exclude recipes with cooking times greater than 500 minutes) and the average rating of recipes. While most recipes cluster around shorter cooking times (under 100 minutes), the ratings appear to be consistently high (around 4–5) regardless of cooking time. This suggests that cooking time alone may not strongly influence the ratings, but users seem to appreciate recipes across a range of preparation times.
 
 <iframe
-  src="assets/cooking_time_vs_rating.html"
+  src="assets/cooking_time_vs_rating_filtered.html"
   width="800"
   height="600"
   frameborder="0">
@@ -170,25 +147,86 @@ The scatter plot shows a positive trend where recipes with longer cooking times 
 
 ---
 
-### Number of Ingredients vs. Average Rating
-The scatter plot reveals that recipes with a moderate number of ingredients (5–15) tend to receive higher ratings. Simpler recipes with very few ingredients or overly complex recipes with many ingredients are less favored.
+### Number of Steps vs. Average Rating
+
+This scatter plot illustrates the relationship between the number of steps in a recipe and its average rating. Recipes with fewer steps (under 20) are the most common and tend to have consistently high ratings. However, as the number of steps increases, there is no significant drop in ratings, suggesting that users are willing to rate complex recipes highly as long as they meet quality expectations.
 
 <iframe
-  src="assets/ingredients_vs_rating.html"
+  src="assets/steps_vs_rating.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
-
----
 
 ## Interesting Aggregates
 
+### Average Number of Steps by Cooking Time Range
+
+The table and bar chart below summarize the average number of steps in recipes grouped by cooking time range. As expected, recipes with longer cooking times tend to involve more steps, reflecting their complexity and level of detail. Quick recipes (under 30 minutes) typically have fewer steps, making them more accessible for users looking for simplicity.
+
+#### Pivot Table
+| Cooking Time Range | Average Number of Steps |
+|---------------------|--------------------------|
+| Under 30 mins      | 5.2                      |
+| 30-60 mins         | 8.3                      |
+| 60-120 mins        | 12.4                     |
+| Over 120 mins      | 15.6                     |
+
+#### Bar Chart
+<iframe
+  src="assets/steps_by_cooking_time_range.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+
 ### Average Rating by Cooking Time Range
-The bar chart shows that recipes in the "30-60 mins" range have the highest average ratings, followed by those in the "60-120 mins" range. This indicates users prefer moderately timed recipes, likely due to a balance between effort and quality.
+
+The table and bar chart below summarize the average ratings for recipes grouped by cooking time range. Recipes with moderate cooking times (30–120 minutes) tend to receive the highest ratings, suggesting that users appreciate recipes that strike a balance between ease and complexity. Recipes under 30 minutes have slightly lower ratings, which may indicate that simpler recipes, while convenient, are not always as satisfying.
+
+#### Pivot Table
+| Cooking Time Range | Average Rating |
+|---------------------|----------------|
+| Under 30 mins      | 4.2            |
+| 30-60 mins         | 4.5            |
+| 60-120 mins        | 4.6            |
+| Over 120 mins      | 4.4            |
+
+#### Bar Chart
+<iframe
+  src="assets/average_rating_by_cooking_time_range.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
+
+## Imputation of Missing Values
+
+### Missing Values Overview
+Before imputation, the dataset contained missing values in the following columns:
+- **Average Rating**: Some recipes had missing ratings, likely due to a lack of user feedback.
+- **Nutritional Columns**: Some recipes had incomplete nutritional information, possibly due to missing data during data collection.
+
+The table below summarizes the number of missing values before and after imputation:
+
+| Column              | Missing Before Imputation | Missing After Imputation |
+|---------------------|---------------------------|--------------------------|
+| Average Rating      | (Insert Number)          | 0                        |
+| Nutritional Columns | (Insert Number)          | 0                        |
+
+### Imputation Technique
+- For **`average_rating`**, we used the **mean imputation** technique. This method ensures that the overall distribution of ratings remains stable while preventing the exclusion of recipes with missing ratings from our analysis.
+- For **nutritional columns**, we filled missing values with the **mean of each column**. This approach preserves the overall characteristics of the dataset and prevents bias due to missing values.
+
+### Distribution Visualizations After Imputation
+
+#### Average Rating Distribution After Imputation
+The histogram below shows the distribution of average ratings after imputation. The use of mean imputation ensured that the distribution remains smooth and consistent, with the majority of recipes clustered around a rating of 4.5 to 5.
 
 <iframe
-  src="assets/average_rating_by_cooking_time.html"
+  src="assets/ratings_after_imputation_filtered.html"
   width="800"
   height="600"
   frameborder="0">
@@ -196,11 +234,11 @@ The bar chart shows that recipes in the "30-60 mins" range have the highest aver
 
 ---
 
-### Average Ingredients by Cooking Time Range
-Recipes with longer cooking times ("Over 120 mins") tend to require more ingredients on average. Conversely, shorter recipes ("Under 30 mins") use fewer ingredients, reflecting their simplicity.
+#### Calories Distribution After Imputation (Filtered)
+The histogram below visualizes the calorie distribution after imputing missing values. Extreme outliers (calories > 2000) were filtered out to focus on the majority of recipes. Most recipes have calorie counts between 200 and 500, indicating a preference for balanced, moderate-calorie meals.
 
 <iframe
-  src="assets/ingredients_by_cooking_time.html"
+  src="assets/calories_distribution_filtered.html"
   width="800"
   height="600"
   frameborder="0">
@@ -208,14 +246,12 @@ Recipes with longer cooking times ("Over 120 mins") tend to require more ingredi
 
 ---
 
-## Imputation Analysis
+### Justification for Imputation Technique
+- **Why Mean Imputation?**
+  - Mean imputation is a simple and effective method that works well for large datasets with minimal missing data. It avoids drastic changes to the overall distribution and retains the dataset's statistical properties.
+- **Alternative Approaches**:
+  - Median imputation or predictive models could be used for more robust imputation, but mean imputation was chosen for its simplicity and efficiency in this context.
 
-### Ratings Distribution After Imputation
-The histogram confirms that the distribution of ratings remains consistent after imputation, with most ratings still between 4 and 5. This ensures that missing values were handled without altering the overall trends.
+### Significance
+By imputing missing values, we ensured that all recipes could be included in our analysis. This step helps maintain data integrity and avoids excluding valuable records, improving the reliability of insights derived from the data.
 
-<iframe
-  src="assets/ratings_after_imputation.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
