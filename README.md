@@ -1,6 +1,7 @@
 # Cooking Up Insights: Analyzing Recipes and Ratings Data
 
 **Name**: Angela Li  
+**Github**: [(your website link)](https://github.com/anqiliumich/recipes-and-ratings-analysis)
 
 ---
 
@@ -255,3 +256,52 @@ The histogram below visualizes the calorie distribution after imputing missing v
 ### Significance
 By imputing missing values, we ensured that all recipes could be included in our analysis. This step helps maintain data integrity and avoids excluding valuable records, improving the reliability of insights derived from the data.
 
+## Framing a Prediction Problem
+
+### Prediction Problem
+Our prediction problem is to **predict the average rating of a recipe** based on its features, such as:
+- Preparation time (`minutes`)
+- Number of ingredients (`n_ingredients`)
+- Number of steps (`n_steps`)
+- Nutritional values (`calories`, `protein`, `sodium`, etc.)
+
+This is a **regression problem** because the target variable, **average rating**, is continuous and ranges from 1 to 5.
+
+### Justification
+Understanding what factors contribute to higher ratings can:
+- Help home cooks create recipes that are more likely to be well-received.
+- Provide insights for recipe developers on Food.com to optimize their content.
+
+### Response Variable
+- **`average_rating`**: The average rating of a recipe based on user interactions.
+
+### Features
+The following features will be used to predict the response variable:
+1. **Cooking Time**: `minutes`
+2. **Number of Ingredients**: `n_ingredients`
+3. **Number of Steps**: `n_steps`
+4. **Nutritional Values**:
+   - `calories`
+   - `total_fat`
+   - `sugar`
+   - `sodium`
+   - `protein`
+   - `saturated_fat`
+   - `carbohydrates`
+
+### Evaluation Metric
+We will use the **Mean Absolute Error (MAE)** as our evaluation metric because:
+- MAE is straightforward to interpret, measuring the average absolute error between predicted and actual ratings.
+- It penalizes all errors equally, making it suitable for understanding how close predictions are to the true ratings.
+
+### Why This Problem Matters
+Accurately predicting average ratings can:
+- Enhance the recommendation system for Food.com.
+- Help users identify recipes likely to match their preferences.
+- Provide insights into what makes recipes appealing to users.
+
+### Assumptions
+- All features used for prediction are known at the time of recipe creation or publishing.
+- Missing values have been imputed to avoid bias in predictions.
+
+---
