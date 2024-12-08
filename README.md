@@ -167,8 +167,8 @@ The table and bar chart below summarize the average number of steps in recipes g
 
 #### Pivot Table: Average Number of Steps by Cooking Time Range
 
-| Cooking Time Range | Average Number of Steps |
-|---------------------|--------------------------|
+| Cooking Time Range | Average Number of Steps  |
+|--------------------|--------------------------|
 | Under 30 mins      | 5.2                      |
 | 30-60 mins         | 8.3                      |
 | 60-120 mins        | 12.4                     |
@@ -189,12 +189,12 @@ The table and bar chart below summarize the average ratings for recipes grouped 
 
 #### Pivot Table: Average Rating by Cooking Time Range
 
-| Cooking Time Range | Average Rating |
+| Cooking Time Range  | Average Rating |
 |---------------------|----------------|
-| Under 30 mins      | 4.2            |
-| 30-60 mins         | 4.5            |
-| 60-120 mins        | 4.6            |
-| Over 120 mins      | 4.4            |
+| Under 30 mins       | 4.2            |
+| 30-60 mins          | 4.5            |
+| 60-120 mins         | 4.6            |
+| Over 120 mins       | 4.4            |
 
 #### Bar Chart
 <iframe
@@ -209,101 +209,37 @@ The table and bar chart below summarize the average ratings for recipes grouped 
 
 ### Missing Values Overview
 Before imputation, the dataset contained missing values in the following columns:
-- **Average Rating**: Some recipes had missing ratings, likely due to a lack of user feedback.
-- **Nutritional Columns**: Some recipes had incomplete nutritional information, possibly due to missing data during data collection.
+- **`description`**: Missing descriptions likely occurred during data collection or due to incomplete user submissions.
+- **`cooking_time_range`**: Missing values were due to an incomplete derivation process based on `minutes`.
+- **`name`**: A single recipe was missing a name, potentially due to a data entry error.
 
 The table below summarizes the number of missing values before and after imputation:
 
 | Column              | Missing Before Imputation | Missing After Imputation |
 |---------------------|---------------------------|--------------------------|
-| Average Rating      | (Insert Number)          | 0                        |
-| Nutritional Columns | (Insert Number)          | 0                        |
+| `description`       | 70                        | 0                        |
+| `cooking_time_range`| 1                         | 0                        |
+| `name`              | 1                         | 0                        |
 
 ### Imputation Technique
-- For **`average_rating`**, we used the **mean imputation** technique. This method ensures that the overall distribution of ratings remains stable while preventing the exclusion of recipes with missing ratings from our analysis.
-- For **nutritional columns**, we filled missing values with the **mean of each column**. This approach preserves the overall characteristics of the dataset and prevents bias due to missing values.
+- For **`description`**, missing values were replaced with the placeholder `"No description provided"`. Since this column is not central to our analysis, this ensures consistency without affecting results.
+- For **`cooking_time_range`**, missing values were recalculated based on the `minutes` column. This derived column is important for grouped analysis, and the imputation ensures its completeness.
+- For **`name`**, the missing value was replaced with the placeholder `"Unknown Recipe"`. As this column is primarily used for recipe identification and not analysis, this imputation prevents issues without impacting outcomes.
 
-### Distribution Visualizations After Imputation
-
-#### Average Rating Distribution After Imputation
-The histogram below shows the distribution of average ratings after imputation. The use of mean imputation ensured that the distribution remains smooth and consistent, with the majority of recipes clustered around a rating of 4.5 to 5.
+### Visualization: Cooking Time Range Distribution After Imputation
+The bar chart below displays the distribution of recipes by `cooking_time_range` after imputation. The imputation step ensured that all recipes were categorized into appropriate cooking time ranges based on their preparation time. This step was crucial for grouped analyses in later sections.
 
 <iframe
-  src="assets/ratings_after_imputation_filtered.html"
+  src="assets/cooking_time_range_distribution.html"
   width="800"
   height="600"
   frameborder="0">
 </iframe>
-
----
-
-#### Calories Distribution After Imputation (Filtered)
-The histogram below visualizes the calorie distribution after imputing missing values. Extreme outliers (calories > 2000) were filtered out to focus on the majority of recipes. Most recipes have calorie counts between 200 and 500, indicating a preference for balanced, moderate-calorie meals.
-
-<iframe
-  src="assets/calories_distribution_filtered.html"
-  width="800"
-  height="600"
-  frameborder="0">
-</iframe>
-
----
 
 ### Justification for Imputation Technique
-- **Why Mean Imputation?**
-  - Mean imputation is a simple and effective method that works well for large datasets with minimal missing data. It avoids drastic changes to the overall distribution and retains the dataset's statistical properties.
-- **Alternative Approaches**:
-  - Median imputation or predictive models could be used for more robust imputation, but mean imputation was chosen for its simplicity and efficiency in this context.
+- **Description**: A placeholder ensures the dataset remains consistent, even though this column is not central to our research question.
+- **Cooking Time Range**: The recalculation based on `minutes` ensures logical consistency and avoids missing data in grouped analyses.
+- **Name**: Using a placeholder prevents issues with indexing or identification while maintaining dataset integrity.
 
 ### Significance
-By imputing missing values, we ensured that all recipes could be included in our analysis. This step helps maintain data integrity and avoids excluding valuable records, improving the reliability of insights derived from the data.
-
-## Framing a Prediction Problem
-
-### Prediction Problem
-Our prediction problem is to **predict the average rating of a recipe** based on its features, such as:
-- Preparation time (`minutes`)
-- Number of ingredients (`n_ingredients`)
-- Number of steps (`n_steps`)
-- Nutritional values (`calories`, `protein`, `sodium`, etc.)
-
-This is a **regression problem** because the target variable, **average rating**, is continuous and ranges from 1 to 5.
-
-### Justification
-Understanding what factors contribute to higher ratings can:
-- Help home cooks create recipes that are more likely to be well-received.
-- Provide insights for recipe developers on Food.com to optimize their content.
-
-### Response Variable
-- **`average_rating`**: The average rating of a recipe based on user interactions.
-
-### Features
-The following features will be used to predict the response variable:
-1. **Cooking Time**: `minutes`
-2. **Number of Ingredients**: `n_ingredients`
-3. **Number of Steps**: `n_steps`
-4. **Nutritional Values**:
-   - `calories`
-   - `total_fat`
-   - `sugar`
-   - `sodium`
-   - `protein`
-   - `saturated_fat`
-   - `carbohydrates`
-
-### Evaluation Metric
-We will use the **Mean Absolute Error (MAE)** as our evaluation metric because:
-- MAE is straightforward to interpret, measuring the average absolute error between predicted and actual ratings.
-- It penalizes all errors equally, making it suitable for understanding how close predictions are to the true ratings.
-
-### Why This Problem Matters
-Accurately predicting average ratings can:
-- Enhance the recommendation system for Food.com.
-- Help users identify recipes likely to match their preferences.
-- Provide insights into what makes recipes appealing to users.
-
-### Assumptions
-- All features used for prediction are known at the time of recipe creation or publishing.
-- Missing values have been imputed to avoid bias in predictions.
-
----
+The imputation process focused on ensuring consistency for secondary columns (e.g., `description`, `cooking_time_range`, `name`) while retaining the original statistical properties of key analytical columns. By addressing missing values in this way, we maintained the dataset's usability and ensured no valuable records were excluded. This step enhances the reliability and completeness of the insights derived from the data.
