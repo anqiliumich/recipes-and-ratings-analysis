@@ -8,7 +8,7 @@
 
 ---
 
-## Introduction
+# Introduction
 
 ### Background
 This dataset contains recipes and ratings scraped from **Food.com**, a popular online platform for sharing and discovering recipes. The dataset was originally collected for a recommender systems research paper and includes data spanning from 2008 onward. It offers a wealth of information, including recipe preparation details, nutritional values, and user feedback in the form of ratings and reviews.
@@ -286,7 +286,7 @@ To evaluate the predictive model’s performance, we will use:
 3. **R² Score**:
    - Explains the proportion of variance in calorie count that can be predicted by the selected features.
 
-## Baseline Model
+# Baseline Model
 
 ### Model Description
 
@@ -344,7 +344,7 @@ However, as a baseline model, it provides:
 2. Explore feature engineering to derive new variables, such as the ratio of sugar to sodium, or transformations to normalize skewed distributions.
 3. Investigate non-linear models, such as Random Forests or Gradient Boosting, which may better capture complex relationships between features and calories.
 
-## Final Model
+# Final Model
 
 ### Model Description
 The final model is designed to predict the calorie content of recipes using nutritional information and engineered features. This model builds upon the baseline model by incorporating additional features and using a more advanced algorithm with hyperparameter tuning to improve predictive performance.
