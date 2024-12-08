@@ -18,11 +18,3 @@ nav:
     url: /#baseline-model
   - title: "Final Model"
     url: /#final-model
-
-# Optional settings
-aux_links:
-  "GitHub Repository":
-    - url: "https://github.com/your-repo-name"
-    - text: "View on GitHub"
-
-footer_content: 'Copyright &copy; 2023 Angela Li. All rights reserved.'
