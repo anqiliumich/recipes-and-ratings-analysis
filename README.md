@@ -1,6 +1,7 @@
 # Cooking Up Insights: Analyzing Recipes and Ratings Data
 
 **Name**: Angela Li  
+**Email**: anqili@umich.edu
 **Github**: [(Click Me!)](https://github.com/anqiliumich/recipes-and-ratings-analysis)
 
 ---
@@ -249,7 +250,7 @@ Imputation was applied selectively:
 - **Cooking Time Range**: The recalculation based on `minutes` ensures logical consistency and avoids missing data in grouped analyses.
 - **Name**: Using a placeholder prevents issues with indexing or identification while maintaining dataset integrity.
 
-### Prediction Problem
+# Framing a Prediction Problem
 The goal of this analysis is to **predict the calorie count** of recipes based on their nutritional components.
 
 ### Problem Type
