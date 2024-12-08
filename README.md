@@ -175,7 +175,7 @@ The scatter plot below shows the relationship between calories and total fat per
 The box plot below displays the distribution of calorie counts across recipes grouped by the number of ingredients (binned). Recipes with more ingredients tend to have a higher median calorie count. However, the wide range of calories within each bin suggests that other factors also significantly contribute to caloric content.
 
 <iframe
-  src="assets/calories_by_num_ingredients.html"
+  src="assets/calories_by_n_ingredients.html"
   width="800"
   height="600"
   frameborder="0">
