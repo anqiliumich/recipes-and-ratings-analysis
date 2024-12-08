@@ -165,7 +165,8 @@ This scatter plot illustrates the relationship between the number of steps in a 
 
 The table and bar chart below summarize the average number of steps in recipes grouped by cooking time range. As expected, recipes with longer cooking times tend to involve more steps, reflecting their complexity and level of detail. Quick recipes (under 30 minutes) typically have fewer steps, making them more accessible for users looking for simplicity.
 
-#### Pivot Table
+#### Pivot Table: Average Number of Steps by Cooking Time Range
+
 | Cooking Time Range | Average Number of Steps |
 |---------------------|--------------------------|
 | Under 30 mins      | 5.2                      |
@@ -186,7 +187,8 @@ The table and bar chart below summarize the average number of steps in recipes g
 
 The table and bar chart below summarize the average ratings for recipes grouped by cooking time range. Recipes with moderate cooking times (30–120 minutes) tend to receive the highest ratings, suggesting that users appreciate recipes that strike a balance between ease and complexity. Recipes under 30 minutes have slightly lower ratings, which may indicate that simpler recipes, while convenient, are not always as satisfying.
 
-#### Pivot Table
+#### Pivot Table: Average Rating by Cooking Time Range
+
 | Cooking Time Range | Average Rating |
 |---------------------|----------------|
 | Under 30 mins      | 4.2            |
