@@ -1,7 +1,9 @@
 # Cooking Up Insights: Analyzing Recipes and Ratings Data
 
 **Name**: Angela Li  
+
 **Email**: anqili@umich.edu
+
 **Github**: [(Click Me!)](https://github.com/anqiliumich/recipes-and-ratings-analysis)
 
 ---
