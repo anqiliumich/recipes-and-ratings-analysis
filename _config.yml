@@ -3,9 +3,10 @@ plugins:
   - jekyll-remote-theme
 
 title: "Recipes and Ratings Analysis"
-description: "Cooking Up Insights: Analyzing Recipes and Ratings Data"
+description: "Analyzing recipes and ratings data"
+search_enabled: true
+nav_enabled: true
 
-# Sidebar navigation
 nav:
   - title: "Introduction"
     url: /
@@ -17,3 +18,11 @@ nav:
     url: /#baseline-model
   - title: "Final Model"
     url: /#final-model
+
+# Optional settings
+aux_links:
+  "GitHub Repository":
+    - url: "https://github.com/your-repo-name"
+    - text: "View on GitHub"
+
+footer_content: 'Copyright &copy; 2023 Angela Li. All rights reserved.'
