@@ -1,7 +1,7 @@
 # Cooking Up Insights: Analyzing Recipes and Ratings Data
 
 **Name**: Angela Li  
-**Github**: [(your website link)](https://github.com/anqiliumich/recipes-and-ratings-analysis)
+**Github**: [(Click Me!)](https://github.com/anqiliumich/recipes-and-ratings-analysis)
 
 ---
 
@@ -380,6 +380,7 @@ After grid search, the best parameters were:
 - `subsample`: 0.8
 
 ### Model Performance
+
 | Metric          | Training Set | Test Set  |
 |-----------------|--------------|-----------|
 | **RMSE**        | 61.0425      | 180.7139  |
