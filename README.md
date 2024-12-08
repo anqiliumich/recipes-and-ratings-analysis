@@ -381,7 +381,7 @@ After grid search, the best parameters were:
 
 ### Model Performance
 | Metric          | Training Set | Test Set  |
-|------------------|--------------|-----------|
+|-----------------|--------------|-----------|
 | **RMSE**        | 61.0425      | 180.7139  |
 | **R² Score**    | 0.9911       | 0.9069    |
 
@@ -394,7 +394,12 @@ After grid search, the best parameters were:
 ### Visualization of Model Performance
 Below is a scatter plot showing the predicted vs. actual calorie values for the test set:
 
-![Predicted vs. Actual Calories](predicted_vs_actual_calories_plot.html)
+<iframe
+  src="assets/predicted_vs_actual_calories_plot.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
 
 This visualization illustrates the model's accuracy, with points clustering around the diagonal line (`y = x`), indicating strong predictive performance.
 
